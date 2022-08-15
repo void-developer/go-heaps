@@ -119,3 +119,12 @@ func (h *Heap[C]) InitFromArray(arr []C) {
 	h.Tree = arr
 	h.Size = len(arr)
 }
+
+func (h *Heap[C]) Heapify(arr []C) *Heap[C] {
+	h.Tree = arr
+	h.Size = len(arr)
+	for i := len(arr) - 1; i >= 0; i-- {
+		h.siftDown(i)
+	}
+	return h
+}
