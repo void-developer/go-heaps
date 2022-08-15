@@ -1,7 +1,8 @@
-package heaps
+package go_heaps
 
 import (
-	"go-heaps/src/heaps/types"
+	"github.com/void-developer/go-heaps/src/heaps"
+	"github.com/void-developer/go-heaps/src/heaps/types"
 )
 
 const (
@@ -41,8 +42,8 @@ func (h *Heap[C]) Push(val C) {
 
 func (h *Heap[C]) siftUp() {
 	currentNode := h.Size - 1
-	for h.comparePriority(h.Tree[currentNode], h.Tree[GetParent(currentNode)]) > 0 {
-		parentNode := GetParent(currentNode)
+	for h.comparePriority(h.Tree[currentNode], h.Tree[heaps.GetParent(currentNode)]) > 0 {
+		parentNode := heaps.GetParent(currentNode)
 		temp := h.Tree[parentNode]
 		h.Tree[parentNode] = h.Tree[currentNode]
 		h.Tree[currentNode] = temp
@@ -52,7 +53,7 @@ func (h *Heap[C]) siftUp() {
 
 func (h *Heap[C]) siftDown(ix int) {
 	currentNode := ix
-	children := GetChildren(currentNode)
+	children := heaps.GetChildren(currentNode)
 	for children[0] < h.Size && !h.Tree[children[0]].IsNull() {
 		swap := -1
 		if h.comparePriority(h.Tree[children[0]], h.Tree[currentNode]) > 0 {
@@ -71,7 +72,7 @@ func (h *Heap[C]) siftDown(ix int) {
 		h.Tree[swap] = h.Tree[currentNode]
 		h.Tree[currentNode] = temp
 		currentNode = swap
-		children = GetChildren(currentNode)
+		children = heaps.GetChildren(currentNode)
 	}
 }
 
