@@ -11,11 +11,9 @@ const (
 )
 
 type Heap[C types.Comparable] struct {
-	Tree    []C
-	Size    int
-	Type    int
-	Nil     C
-	Default C
+	Tree []C
+	Size int
+	Type int
 }
 
 func (h *Heap[C]) comparePriority(val1 C, val2 C) int {
@@ -79,7 +77,6 @@ func (h *Heap[C]) siftDown(ix int) {
 func (h *Heap[C]) Replace(val C) C {
 	if !h.IsFull() {
 		h.Push(val)
-		return h.Nil
 	}
 	popped := h.Tree[0]
 	h.Tree[0] = val
@@ -89,14 +86,14 @@ func (h *Heap[C]) Replace(val C) C {
 
 func (h *Heap[C]) Pop() C {
 	if h.Size == 0 {
-		return h.Nil
+		return *new(C)
 	}
 
 	popped := h.Tree[0]
 	h.Size -= 1
 	if h.Size > 0 {
 		h.Tree[0] = h.Tree[h.Size]
-		h.Tree[h.Size] = h.Nil
+		//h.Tree[h.Size] = h.Nil
 		h.siftDown(0)
 	}
 	return popped
@@ -108,9 +105,9 @@ func (h *Heap[C]) IsFull() bool {
 
 func (h *Heap[C]) Init(size int, _type int) {
 	h.Tree = make([]C, size)
-	for i := 0; i < size; i++ {
-		h.Tree[i] = h.Nil
-	}
+	//for i := 0; i < size; i++ {
+	//	h.Tree[i] = h.Nil
+	//}
 	h.Size = 0
 	h.Type = _type
 }
